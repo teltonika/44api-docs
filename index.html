@@ -1,227 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <title>44API Documentation</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="VAT Validation API for 52+ countries. Validate EU, UK, Switzerland, Norway and more." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
-  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { margin: 0; padding: 0; }
-    .pricing-card { transition: transform 0.2s, box-shadow 0.2s; }
-    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
-    .popular { border: 2px solid #f59e0b; }
-    .loading { animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
   </style>
 </head>
-<body class="bg-gray-50">
-  
-  <!-- Dynamic Header Section -->
-  <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-    <div class="max-w-7xl mx-auto px-4 py-12">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold mb-4">44API Documentation</h1>
-        <p class="text-xl opacity-90 mb-2">VAT Validation API for <span id="country-count" class="font-semibold loading">52+</span> countries</p>
-        <p class="opacity-75">One API, consistent responses, complete company data</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dynamic Stats Bar -->
-  <div class="bg-white border-b">
-    <div class="max-w-7xl mx-auto px-4 py-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center" id="stats-bar">
-        <div>
-          <div class="text-2xl font-bold text-indigo-600" id="stat-countries">52+</div>
-          <div class="text-sm text-gray-500">Countries</div>
-        </div>
-        <div>
-          <div class="text-2xl font-bold text-indigo-600" id="stat-eu">27</div>
-          <div class="text-sm text-gray-500">EU Countries</div>
-        </div>
-        <div>
-          <div class="text-2xl font-bold text-indigo-600" id="stat-cache">7-day</div>
-          <div class="text-sm text-gray-500">Smart Cache</div>
-        </div>
-        <div>
-          <div class="text-2xl font-bold text-indigo-600" id="stat-free">250</div>
-          <div class="text-sm text-gray-500">Free Requests/mo</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dynamic Pricing Section -->
-  <div class="bg-gray-50 py-12">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-8">Pricing</h2>
-      <div class="grid md:grid-cols-4 gap-6" id="pricing-grid">
-        <!-- Pricing cards loaded dynamically -->
-        <div class="loading bg-white rounded-lg p-6 text-center">Loading...</div>
-        <div class="loading bg-white rounded-lg p-6 text-center">Loading...</div>
-        <div class="loading bg-white rounded-lg p-6 text-center">Loading...</div>
-        <div class="loading bg-white rounded-lg p-6 text-center">Loading...</div>
-      </div>
-      <p class="text-center text-gray-500 mt-6 text-sm">All prices in EUR. VAT may apply.</p>
-    </div>
-  </div>
-
-  <!-- API Reference Section -->
-  <div class="bg-white py-8">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-4">API Reference</h2>
-      <p class="text-center text-gray-600 mb-8">Interactive documentation powered by Scalar</p>
-    </div>
-  </div>
-
-  <!-- Scalar API Reference -->
+<body>
   <script id="api-reference" data-url="/openapi.yaml" data-configuration='{
     "theme": "purple",
     "layout": "modern",
-    "darkMode": false,
+    "darkMode": true,
     "hiddenClients": [],
     "authentication": {
       "preferredSecurityScheme": "ApiKeyAuth",
       "apiKey": {
-        "token": "your-api-key-here"
+        "token": "0000000000000000000000000000000000000000000000000000000000000001"
       }
+    },
+    "metadata": {
+      "title": "44API Documentation",
+      "description": "VAT Validation API for 52+ countries"
     }
   }'></script>
   <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
-
-  <!-- Dynamic Data Loading Script -->
-  <script>
-    const SUPABASE_URL = 'https://ijevhpnjaaxbhaenxteu.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqZXZocG5qYWF4YmhhZW54dGV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQwMTcyMDMsImV4cCI6MjA0OTU5MzIwM30.LzVEOljCJFrmHHeMs-5DN2Txrb_omhXALJbfO4vo2Fw';
-
-    // Fetch pricing from Supabase
-    async function loadPricing() {
-      try {
-        const response = await fetch(
-          `${SUPABASE_URL}/rest/v1/pricing_config?is_active=eq.true&order=display_order`,
-          {
-            headers: {
-              'apikey': SUPABASE_ANON_KEY,
-              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-            }
-          }
-        );
-        const plans = await response.json();
-        renderPricing(plans);
-      } catch (error) {
-        console.error('Failed to load pricing:', error);
-        renderFallbackPricing();
-      }
-    }
-
-    // Fetch stats from Supabase
-    async function loadStats() {
-      try {
-        const response = await fetch(
-          `${SUPABASE_URL}/rest/v1/stats_config?is_active=eq.true`,
-          {
-            headers: {
-              'apikey': SUPABASE_ANON_KEY,
-              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-            }
-          }
-        );
-        const stats = await response.json();
-        renderStats(stats);
-      } catch (error) {
-        console.error('Failed to load stats:', error);
-      }
-    }
-
-    function renderPricing(plans) {
-      const grid = document.getElementById('pricing-grid');
-      grid.innerHTML = plans.map(plan => {
-        const isPopular = plan.is_popular;
-        const isEnterprise = plan.requests_per_month === -1;
-        const isFree = parseFloat(plan.price_eur) === 0;
-        
-        const price = plan.price_eur == -1 ? 'Custom' : `€${parseInt(plan.price_eur)}`;
-        const requests = isEnterprise ? 'Unlimited' : plan.requests_per_month.toLocaleString();
-        const features = plan.features || [];
-        
-        return `
-          <div class="pricing-card bg-white rounded-lg p-6 shadow-md ${isPopular ? 'popular ring-2 ring-amber-500' : ''}">
-            ${isPopular ? '<div class="text-amber-500 text-xs font-semibold uppercase mb-2">Most Popular</div>' : ''}
-            <h3 class="text-xl font-bold mb-2">${plan.plan_name}</h3>
-            <div class="text-3xl font-bold text-indigo-600 mb-1">
-              ${price}${!isFree && plan.price_eur != -1 ? '<span class="text-base font-normal text-gray-500">/mo</span>' : ''}
-            </div>
-            <div class="text-gray-500 text-sm mb-4">${requests} requests/month</div>
-            <ul class="text-sm text-gray-600 space-y-2 mb-6">
-              ${features.map(f => `<li class="flex items-center"><svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>${f}</li>`).join('')}
-            </ul>
-            <a href="https://dashboard.44api.dev" class="block w-full text-center py-2 px-4 rounded-lg ${isPopular ? 'bg-amber-500 hover:bg-amber-600' : 'bg-indigo-600 hover:bg-indigo-700'} text-white font-medium transition">
-              ${isFree ? 'Get Started Free' : 'Get Started'}
-            </a>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function renderStats(stats) {
-      const statsMap = {};
-      stats.forEach(s => statsMap[s.stat_key] = s.stat_value);
-      
-      if (statsMap.total_countries) {
-        document.getElementById('stat-countries').textContent = statsMap.total_countries;
-        document.getElementById('country-count').textContent = statsMap.total_countries;
-        document.getElementById('country-count').classList.remove('loading');
-      }
-      if (statsMap.eu_countries) {
-        document.getElementById('stat-eu').textContent = statsMap.eu_countries;
-      }
-      if (statsMap.cache_duration) {
-        document.getElementById('stat-cache').textContent = statsMap.cache_duration;
-      }
-      if (statsMap.free_requests) {
-        document.getElementById('stat-free').textContent = statsMap.free_requests;
-      }
-    }
-
-    function renderFallbackPricing() {
-      const grid = document.getElementById('pricing-grid');
-      grid.innerHTML = `
-        <div class="bg-white rounded-lg p-6 shadow-md text-center">
-          <h3 class="text-xl font-bold mb-2">Free</h3>
-          <div class="text-3xl font-bold text-indigo-600 mb-1">€0</div>
-          <div class="text-gray-500 text-sm mb-4">250 requests/month</div>
-          <a href="https://dashboard.44api.dev" class="block w-full text-center py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium">Get Started</a>
-        </div>
-        <div class="bg-white rounded-lg p-6 shadow-md text-center">
-          <h3 class="text-xl font-bold mb-2">Starter</h3>
-          <div class="text-3xl font-bold text-indigo-600 mb-1">€9<span class="text-base font-normal text-gray-500">/mo</span></div>
-          <div class="text-gray-500 text-sm mb-4">5,000 requests/month</div>
-          <a href="https://dashboard.44api.dev" class="block w-full text-center py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium">Get Started</a>
-        </div>
-        <div class="bg-white rounded-lg p-6 shadow-md text-center popular ring-2 ring-amber-500">
-          <div class="text-amber-500 text-xs font-semibold uppercase mb-2">Most Popular</div>
-          <h3 class="text-xl font-bold mb-2">Pro</h3>
-          <div class="text-3xl font-bold text-indigo-600 mb-1">€29<span class="text-base font-normal text-gray-500">/mo</span></div>
-          <div class="text-gray-500 text-sm mb-4">25,000 requests/month</div>
-          <a href="https://dashboard.44api.dev" class="block w-full text-center py-2 px-4 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-medium">Get Started</a>
-        </div>
-        <div class="bg-white rounded-lg p-6 shadow-md text-center">
-          <h3 class="text-xl font-bold mb-2">Enterprise</h3>
-          <div class="text-3xl font-bold text-indigo-600 mb-1">€99<span class="text-base font-normal text-gray-500">/mo</span></div>
-          <div class="text-gray-500 text-sm mb-4">Unlimited requests</div>
-          <a href="https://dashboard.44api.dev" class="block w-full text-center py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium">Get Started</a>
-        </div>
-      `;
-    }
-
-    // Load data on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      loadPricing();
-      loadStats();
-    });
-  </script>
-
 </body>
 </html>
