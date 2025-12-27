@@ -3,7 +3,7 @@ info:
   title: VAT Validation API
   version: 2.1.0
   description: |
-    Unified VAT/Tax ID validation API for **35+ countries** — 27 EU via VIES plus 8 non-EU countries.
+    Unified VAT/Tax ID validation API for **52+ countries** — 27 EU via VIES plus 25+ non-EU countries.
 
     One API, consistent responses, complete company data.
 
@@ -24,7 +24,7 @@ info:
 
     | Feature | Description |
     |---------|-------------|
-    | 🌍 35+ Countries | 27 EU + 8 Non-EU coverage |
+    | 🌍 52+ Countries | 27 EU + 25+ Non-EU coverage |
     | 🔗 Unified API | One endpoint for all countries |
     | 🏢 Company Data | Name, address, registration status |
     | 💾 Smart Caching | 7-day cache, handles VIES outages |
@@ -37,23 +37,22 @@ info:
 
     | Plan | Requests/Month | Price |
     |------|----------------|-------|
-    | Free | 500 | €0 |
-    | Starter | 5,000 | €19/mo |
-    | Pro | 25,000 | €49/mo |
-    | Enterprise | Unlimited | Custom |
+    | Free | 250 | €0 |
+    | Starter | 5,000 | €9/mo |
+    | Pro | 25,000 | €29/mo |
+    | Enterprise | Unlimited | €99/mo |
+
+    **2.5x more free requests than competitors!**
 
     ---
 
-    ## 🌍 Country Coverage (35+ Countries)
+    ## 🌍 Country Coverage (52+ Countries)
 
     ### EU Countries (27) - via VIES
     `AT` `BE` `BG` `HR` `CY` `CZ` `DK` `EE` `FI` `FR` `DE`* `EL` `HU` `IE` `IT` `LV` `LT` `LU` `MT` `NL` `PL` `PT` `RO` `SK` `SI` `ES`* `SE`
 
-    ### Non-EU Active (8)
-    `CH` Switzerland · `NO` Norway · `AL` Albania · `XK` Kosovo · `TR` Turkey · `GE` Georgia · `MD` Moldova · `UA` Ukraine
-
-    ### Coming Soon
-    `GB` UK · `IN` India · `CA` Canada · `SG` Singapore · `SA` Saudi Arabia · `ZA` South Africa · `NZ` New Zealand + more
+    ### Non-EU Active (25+)
+    `GB` UK · `CH` Switzerland · `NO` Norway · `AL` Albania · `XK` Kosovo · `TR` Turkey · `GE` Georgia · `MD` Moldova · `UA` Ukraine · `BY` Belarus · `BA` Bosnia · `IS` Iceland · `IL` Israel · `KZ` Kazakhstan · `MK` North Macedonia · `RS` Serbia · `RU` Russia + more
 
     > *Germany (DE) and Spain (ES) return validation status only, without company details due to data protection laws.
 
@@ -82,7 +81,7 @@ paths:
       description: |
         Validates a VAT/Tax ID number and returns company information.
 
-        **Supports 35+ countries** — EU via VIES, plus Switzerland, Norway, and 6 more.
+        **Supports 52+ countries** — EU via VIES, plus UK, Switzerland, Norway, and 20+ more.
 
         **Caching:** Results are cached for 7 days to improve reliability and handle VIES outages.
       tags:
@@ -104,6 +103,11 @@ paths:
                 value:
                   vatNumber: "123456789"
                   countryCode: "DE"
+              uk:
+                summary: United Kingdom
+                value:
+                  vatNumber: "123456789"
+                  countryCode: "GB"
               switzerland:
                 summary: Switzerland (Non-EU)
                 value:
@@ -271,7 +275,7 @@ components:
           type: string
           description: ISO 2-letter country code
           example: "SI"
-          enum: [AT, BE, BG, HR, CY, CZ, DK, EE, FI, FR, DE, EL, HU, IE, IT, LV, LT, LU, MT, NL, PL, PT, RO, SK, SI, ES, SE, CH, NO, AL, XK, TR, GE, MD, UA]
+          enum: [AT, BE, BG, HR, CY, CZ, DK, EE, FI, FR, DE, EL, HU, IE, IT, LV, LT, LU, MT, NL, PL, PT, RO, SK, SI, ES, SE, GB, CH, NO, AL, XK, TR, GE, MD, UA, BY, BA, IS, IL, KZ, MK, RS, RU]
 
     VatResponse:
       type: object
@@ -344,7 +348,7 @@ components:
 
 tags:
   - name: VAT Validation
-    description: Validate VAT/Tax ID numbers across 35+ countries
+    description: Validate VAT/Tax ID numbers across 52+ countries
   - name: IP Whitelist
     description: Enterprise IP whitelist management
   - name: System
